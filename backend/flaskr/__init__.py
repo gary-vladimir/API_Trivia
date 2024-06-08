@@ -50,6 +50,25 @@ def create_app(test_config=None):
         cat_dic = {category.id: category.type for category in categories}
         return jsonify({"success": True, "categories": cat_dic})
 
+    @app.route("/questions", methods=["GET"])
+    def get_questions():
+        page = request.args.get("page", 1, type=int)
+        questions_query = Question.query.paginate(page, QUESTIONS_PER_PAGE, False)
+        questions = [question.format() for question in questions_query.items]
+
+        categories = Category.query.all()
+        categories_dict = {category.id: category.type for category in categories}
+
+        return jsonify(
+            {
+                "success": True,
+                "questions": questions,
+                "total_questions": questions_query.total,
+                "categories": categories_dict,
+                "current_category": None,
+            }
+        )
+
     """
     @TODO:
     Create an endpoint to handle GET requests for questions,
