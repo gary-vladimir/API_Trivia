@@ -44,6 +44,12 @@ def create_app(test_config=None):
     for all available categories.
     """
 
+    @app.route("/categories", methods=["GET"])
+    def get_categories():
+        categories = Category.query.all()
+        cat_dic = {category.id: category.type for category in categories}
+        return jsonify({"success": True, "categories": cat_dic})
+
     """
     @TODO:
     Create an endpoint to handle GET requests for questions,
