@@ -70,13 +70,21 @@ Trivia API is a full-stack application allowing users to play trivia quizzes. Us
    ```
 
 ## Set up and Populate the Database
-With Postgres running, create a trivia database:
+Make sure that Postgres is running with:
 ```
-createdb trivia
+pg_ctl -D "C:\Program Files\PostgreSQL\16\data" start
 ```
-From the backend folder in terminal, Populate the database using the trivia.psql file provided.run:
+then connect to the database using:
 ```
-psql trivia < trivia.psql
+psql -U [user]
+```
+create a trivia database:
+```
+CREATE DATABASE trivia;
+```
+From the backend folder in terminal, Populate the database using the trivia.psql file provided. run (cmd):
+```
+psql trivia [user] < trivia.psql
 ```
 ## Environment Variables
 
